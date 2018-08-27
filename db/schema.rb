@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180827122211) do
+ActiveRecord::Schema.define(version: 20180827122642) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -71,6 +71,16 @@ ActiveRecord::Schema.define(version: 20180827122211) do
 
   add_index "task_lists", ["card_id"], name: "index_task_lists_on_card_id", using: :btree
 
+  create_table "tasks", force: :cascade do |t|
+    t.integer  "state"
+    t.string   "description"
+    t.integer  "task_list_id"
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
+  end
+
+  add_index "tasks", ["task_list_id"], name: "index_tasks_on_task_list_id", using: :btree
+
   create_table "users", force: :cascade do |t|
     t.string   "name"
     t.string   "email"
@@ -89,5 +99,6 @@ ActiveRecord::Schema.define(version: 20180827122211) do
   add_foreign_key "projects_users", "projects"
   add_foreign_key "projects_users", "users"
   add_foreign_key "task_lists", "cards"
+  add_foreign_key "tasks", "task_lists"
   add_foreign_key "users", "organizations"
 end

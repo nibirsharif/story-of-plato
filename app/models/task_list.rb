@@ -12,4 +12,5 @@
 
 class TaskList < ActiveRecord::Base
   belongs_to :card
+  has_many :tasks
 end
