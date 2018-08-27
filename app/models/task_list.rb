@@ -3,7 +3,7 @@
 # Table name: task_lists
 #
 #  id         :integer          not null, primary key
-#  completed  :integer
+#  completed  :boolean          default(FALSE)
 #  color      :string
 #  card_id    :integer
 #  created_at :datetime         not null
