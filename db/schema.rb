@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180827122642) do
+ActiveRecord::Schema.define(version: 20180827122940) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -24,6 +24,13 @@ ActiveRecord::Schema.define(version: 20180827122642) do
   end
 
   add_index "boards", ["project_id"], name: "index_boards_on_project_id", using: :btree
+
+  create_table "card_references", force: :cascade do |t|
+    t.integer  "card_referrer_id"
+    t.integer  "card_referent_id"
+    t.datetime "created_at",       null: false
+    t.datetime "updated_at",       null: false
+  end
 
   create_table "cards", force: :cascade do |t|
     t.string   "title",       limit: 288

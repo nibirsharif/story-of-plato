@@ -1,0 +1,2 @@
+class CardReferencesController < ApplicationController
+end
