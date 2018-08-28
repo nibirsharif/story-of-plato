@@ -1,0 +1,2 @@
+module OrganizationSubscriptionsHelper
+end

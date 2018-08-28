@@ -15,4 +15,5 @@ class User < ActiveRecord::Base
   belongs_to :organization
   has_many :cards
   has_and_belongs_to_many :projects
+  has_secure_password
 end

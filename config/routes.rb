@@ -1,4 +1,8 @@
 Rails.application.routes.draw do
+  resources :organization_subscriptions
+  resources :user_subscriptions
+  resources :subscription_plans
+  resources :pricing_plans
   resources :card_references
   resources :tasks
   resources :task_lists
@@ -15,6 +19,8 @@ Rails.application.routes.draw do
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
+
+  get '/signup', to: 'users#new'
 
   # Example of named route that can be invoked with purchase_url(id: product.id)
   #   get 'products/:id/purchase' => 'catalog#purchase', as: :purchase

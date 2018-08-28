@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  plan_type: 1
+  subscription_type: 1
+  monthly_cap: 1
+  pricing_pan_id: 
+
+two:
+  plan_type: 1
+  subscription_type: 1
+  monthly_cap: 1
+  pricing_pan_id: 

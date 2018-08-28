@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180827122940) do
+ActiveRecord::Schema.define(version: 20180828040158) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -45,10 +45,31 @@ ActiveRecord::Schema.define(version: 20180827122940) do
   add_index "cards", ["board_id"], name: "index_cards_on_board_id", using: :btree
   add_index "cards", ["user_id"], name: "index_cards_on_user_id", using: :btree
 
+  create_table "organization_subscriptions", force: :cascade do |t|
+    t.integer  "status"
+    t.integer  "organization_id"
+    t.integer  "subscription_plan_id"
+    t.datetime "created_at",           null: false
+    t.datetime "updated_at",           null: false
+  end
+
+  add_index "organization_subscriptions", ["organization_id"], name: "index_organization_subscriptions_on_organization_id", using: :btree
+  add_index "organization_subscriptions", ["subscription_plan_id"], name: "index_organization_subscriptions_on_subscription_plan_id", using: :btree
+
   create_table "organizations", force: :cascade do |t|
     t.string   "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "pricing_plans", force: :cascade do |t|
+    t.string   "name"
+    t.string   "currency",          default: "USD"
+    t.integer  "monthly_price"
+    t.integer  "annual_price"
+    t.integer  "additional_charge"
+    t.datetime "created_at",                        null: false
+    t.datetime "updated_at",                        null: false
   end
 
   create_table "projects", force: :cascade do |t|
@@ -67,6 +88,17 @@ ActiveRecord::Schema.define(version: 20180827122940) do
 
   add_index "projects_users", ["project_id"], name: "index_projects_users_on_project_id", using: :btree
   add_index "projects_users", ["user_id"], name: "index_projects_users_on_user_id", using: :btree
+
+  create_table "subscription_plans", force: :cascade do |t|
+    t.integer  "plan_type"
+    t.integer  "subscription_type"
+    t.integer  "monthly_cap"
+    t.integer  "pricing_plan_id"
+    t.datetime "created_at",        null: false
+    t.datetime "updated_at",        null: false
+  end
+
+  add_index "subscription_plans", ["pricing_plan_id"], name: "index_subscription_plans_on_pricing_plan_id", using: :btree
 
   create_table "task_lists", force: :cascade do |t|
     t.string   "color"
@@ -88,6 +120,17 @@ ActiveRecord::Schema.define(version: 20180827122940) do
 
   add_index "tasks", ["task_list_id"], name: "index_tasks_on_task_list_id", using: :btree
 
+  create_table "user_subscriptions", force: :cascade do |t|
+    t.integer  "status"
+    t.integer  "user_id"
+    t.integer  "subscription_plan_id"
+    t.datetime "created_at",           null: false
+    t.datetime "updated_at",           null: false
+  end
+
+  add_index "user_subscriptions", ["subscription_plan_id"], name: "index_user_subscriptions_on_subscription_plan_id", using: :btree
+  add_index "user_subscriptions", ["user_id"], name: "index_user_subscriptions_on_user_id", using: :btree
+
   create_table "users", force: :cascade do |t|
     t.string   "name"
     t.string   "email"
@@ -102,10 +145,15 @@ ActiveRecord::Schema.define(version: 20180827122940) do
   add_foreign_key "boards", "projects"
   add_foreign_key "cards", "boards"
   add_foreign_key "cards", "users"
+  add_foreign_key "organization_subscriptions", "organizations"
+  add_foreign_key "organization_subscriptions", "subscription_plans"
   add_foreign_key "projects", "organizations"
   add_foreign_key "projects_users", "projects"
   add_foreign_key "projects_users", "users"
+  add_foreign_key "subscription_plans", "pricing_plans"
   add_foreign_key "task_lists", "cards"
   add_foreign_key "tasks", "task_lists"
+  add_foreign_key "user_subscriptions", "subscription_plans"
+  add_foreign_key "user_subscriptions", "users"
   add_foreign_key "users", "organizations"
 end

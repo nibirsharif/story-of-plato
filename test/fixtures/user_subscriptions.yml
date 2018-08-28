@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  status: 1
+  user_id: 
+  subscription_plan_id: 
+
+two:
+  status: 1
+  user_id: 
+  subscription_plan_id: 
