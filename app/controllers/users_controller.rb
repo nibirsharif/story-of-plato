@@ -1,10 +1,10 @@
 class UsersController < ApplicationController
-  def index
-    @users = User.all
-  end
-
   def show
     @user = User.find(params[:id])
+    unless session[:user_id] == @user.id
+      flash[:danger] = "Unauthorized access!"
+      redirect_to root_url
+    end
   end
 
   def new
@@ -14,6 +14,7 @@ class UsersController < ApplicationController
   def create
     @user = User.new(user_params)
     if @user.save
+      log_in @user
       flash[:success] = "Welcome to the Story of Plato!"
       redirect_to @user
     else

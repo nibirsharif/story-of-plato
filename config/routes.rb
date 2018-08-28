@@ -1,16 +1,16 @@
 Rails.application.routes.draw do
-  resources :organization_subscriptions
-  resources :user_subscriptions
-  resources :subscription_plans
-  resources :pricing_plans
-  resources :card_references
-  resources :tasks
-  resources :task_lists
-  resources :cards
-  resources :boards
-  resources :projects
-  resources :users
-  resources :organizations
+  # resources :organization_subscriptions
+  # resources :user_subscriptions
+  # resources :subscription_plans
+  # resources :pricing_plans
+  # resources :card_references
+  # resources :tasks
+  # resources :task_lists
+  # resources :cards
+  # resources :boards
+  # resources :projects
+  # resources :users
+  # resources :organizations
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
@@ -20,16 +20,21 @@ Rails.application.routes.draw do
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
 
-  root 'static_pages#home'
-  get  '/help',    to: 'static_pages#help'
-  get  '/about',   to: 'static_pages#about'
-  get  '/contact', to: 'static_pages#contact'
-  get  '/signup',  to: 'users#new'
-  post '/signup',  to: 'users#create'
+  root    'static_pages#home'
+  get     '/help',    to: 'static_pages#help'
+  get     '/about',   to: 'static_pages#about'
+  get     '/contact', to: 'static_pages#contact'
+  get     '/signup',  to: 'users#new'
+  post    '/signup',  to: 'users#create'
+  get     '/login',   to: 'sessions#new'
+  post    '/login',   to: 'sessions#create'
+  delete  '/logout',  to: 'sessions#destroy'
+  resources :users
 
   get 'static_pages/home'
   get 'static_pages/help'
   get 'static_pages/about'
+  get 'sessions/new'
 
   # Example of named route that can be invoked with purchase_url(id: product.id)
   #   get 'products/:id/purchase' => 'catalog#purchase', as: :purchase
