@@ -1,26 +1,20 @@
 <!DOCTYPE html>
 <html>
-<head>
-  <title>StoryOfPlato</title>
-  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
-  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
-  <%= csrf_meta_tags %>
-</head>
-<body>
-  <header class="navbar navbar-fixed-top navbar-inverse">
+  <head>
+    <title>Story of Plato</title>
+    <%= render 'layouts/rails_default' %>
+    <%= render 'layouts/shim' %>
+  </head>
+  <body>
+    <%= render 'layouts/header' %>
     <div class="container">
-      <%= link_to "Story of Plato", '#', id: "logo" %>
-      <nav>
-        <ul class="nav navbar-nav navbar-right">
-          <li><%= link_to "Home",   '#' %></li>
-          <li><%= link_to "Help",   '#' %></li>
-          <li><%= link_to "Log in", '#' %></li>
-        </ul>
-      </nav>
+      <% flash.each do |message_type, message| %>
+        <div class="alert alert-<%= message_type %>"><%= message %></div>
+      <% end %>
+      <%= yield %>
     </div>
-  </header>
+  </body>
   <div class="container">
-    <%= yield %>
+    <%= render 'layouts/footer' %>
   </div>
-</body>
 </html>
