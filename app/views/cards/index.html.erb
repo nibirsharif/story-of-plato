@@ -7,6 +7,17 @@
         <ul class="list-items">
           <li><%= "#{card.description}" %></li>
           <li><%= "#{card.created_at}" %></li>
+          <% if card.card_referents.present? %>
+            <h4 class="list-title">Referrer</h4>
+            <% card.card_referents.each do |c| %>
+              <li><%= "#{c.title}" %></li>
+            <% end %>
+          <% elsif card.card_referrers.present? %>
+            <h4 class="list-title">Referent</h4>
+            <% card.card_referrers.each do |c| %>
+              <li><%= "#{c.title}" %></li>
+            <% end %>
+          <% end %>
         </ul>
 	    </div>
     <% end %>
