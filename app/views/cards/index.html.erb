@@ -2,24 +2,25 @@
   <h1>Cards</h1>
   <section class="lists-container">
     <% @cards.each do |card| %>
-      <div class="list" style="background-color:<%= card.color %>">
-		    <h3 class="list-title"><%= "#{card.title}" %></h3>
-        <ul class="list-items">
-          <li><%= "#{card.description}" %></li>
-          <li><%= "#{card.created_at}" %></li>
-          <% if card.card_referents.present? %>
-            <h4 class="list-title">Referrer</h4>
+      <div class="list-group">
+        <a style="background-color:<%= card.card_color %>" class="list-group-item list-group-item-action flex-column align-items-start active">
+          <div class="d-flex w-100 justify-content-between">
+            <h5 class="mb-1"><%= "#{card.title}" %></h5>
+            <small><%= "#{card.created_at}" %></small>
+          </div>
+          <p class="mb-1"><%= "#{card.description}" %></p>
+          <small>
             <% card.card_referents.each do |c| %>
-              <li><%= "#{c.title}" %></li>
+              <%= "#{c.title}" %>
             <% end %>
-          <% elsif card.card_referrers.present? %>
-            <h4 class="list-title">Referent</h4>
-            <% card.card_referrers.each do |c| %>
-              <li><%= "#{c.title}" %></li>
-            <% end %>
-          <% end %>
-        </ul>
-	    </div>
+          </small>
+        </a>
+        <% if card.task_list.present? %>
+          <div class="list">
+            <%= link_to "Total task #{card.task_list.tasks.count}", tasks_path(task_list_id: card.task_list.id), class: "list-group-item list-group-item-primary active", method: :get %>
+          </div>
+        <% end %>
+      </div>
     <% end %>
   </section>
 </div>

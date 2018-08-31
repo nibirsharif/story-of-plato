@@ -1,0 +1,13 @@
+<div class="container">
+  <h1>Tasks</h1>
+  <section class="lists-container">
+    <% @tasks.each do |task| %>
+      <% klass = task.state == "completed" ? "success" : "warning" %>
+      <div class="list">
+        <h4 class="list-title">Task <%= task.id %></h3>
+        <li class="list-group-item list-group-item-<%= klass %>"><%="#{task.description}" %></li>
+        <li class="list-group-item list-group-item-<%= klass %>"><%="#{task.state}" %></li>
+      </div>
+    <% end %>
+  </section>
+</div>

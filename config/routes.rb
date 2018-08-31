@@ -4,7 +4,7 @@ Rails.application.routes.draw do
   # resources :subscription_plans
   # resources :pricing_plans
   # resources :card_references
-  # resources :tasks
+  resources :tasks
   # resources :task_lists
   resources :cards
   resources :boards

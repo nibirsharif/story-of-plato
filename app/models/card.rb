@@ -23,4 +23,15 @@ class Card < ActiveRecord::Base
 
   has_many :card_referents, through: :card_referent_referrers, source: :card_referent
   has_many :card_referent_referrers, foreign_key: "card_referrer_id", class_name: "CardReference"
+
+  def card_color
+    @color = self.color
+    if self.task_list.present?
+      @color = self.task_list.color
+      if self.task_list.tasks.all? { |task| task.completed? }
+        @color = "#3CFF33"
+      end
+    end
+    @color
+  end
 end

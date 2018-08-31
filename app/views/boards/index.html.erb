@@ -5,7 +5,7 @@
 		  <h3 class="list-title">Boards</h3>
         <% @boards.each do |board| %>
           <ul class="list-items">
-            <%= link_to "#{board.name}", cards_path(board_id: board.id), class: "list-group-item list-group-item-action", method: :get %>
+            <%= link_to "#{board.name}", cards_path(board_id: board.id), class: "list-group-item list-group-item-action active", method: :get %>
           </ul>
         <% end %>
 	  </div>
